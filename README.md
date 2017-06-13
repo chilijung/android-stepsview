@@ -1,11 +1,9 @@
 # Android-stepsView
-[![Release](https://jitpack.io/v/Canner/android-stepsview.svg)]
-(https://jitpack.io/#Canner/android-stepsview)
+[![Release](https://jitpack.io/v/Canner/android-stepsview.svg)](https://jitpack.io/#Canner/android-stepsview)
 
 Yet another android stepsView library.
 
-modified from:
-https://github.com/anton46/Android-StepsView
+a frok verson of https://github.com/anton46/Android-StepsView
 
 ## Install
 
