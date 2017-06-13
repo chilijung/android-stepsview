@@ -111,6 +111,11 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
         return this;
     }
 
+    public StepsView setCircleRadius(float radius) {
+        mStepsViewIndicator.setCircleRadius(radius);
+        return this;
+    }
+
     public void drawView() {
         if (mLabels == null) {
             throw new IllegalArgumentException("labels must not be null.");
@@ -136,12 +141,14 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
                 TextView textView = new TextView(getContext());
                 textView.setText(mLabels[i]);
                 textView.setTextColor(mLabelColorIndicator);
-                textView.setX(indicatorPosition.get(i));
                 textView.setTextSize(mLabelTextSize);
                 textView.setGravity(Gravity.CENTER);
                 textView.setLayoutParams(
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT));
+                textView.measure(0, 0);
+                float textWidth = textView.getMeasuredWidth();
+                textView.setX(indicatorPosition.get(i) - (textWidth / 2));
 
                 mLabelsLayout.addView(textView);
             }

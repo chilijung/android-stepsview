@@ -19,17 +19,13 @@ public class StepsViewIndicator extends View {
     private int mNumOfStep = 2;
     private float mProgrssStrokeWidth = 5;
     private float mLineHeight;
-    private float mThumbRadius;
-    private float mCircleRadius;
+    private float mCircleRadius = 50;
     private float mMargins = 100;
     private int mProgressColor = Color.YELLOW;
     private int mBarColor = Color.BLACK;
 
     private float mCenterY;
-    private float mLeftX;
     private float mLineY;
-    private float mRightX;
-    private float mDelta;
     private List<Float> mThumbContainerXPosition = new ArrayList<>();
     private int mCompletedPosition;
     private OnDrawListener mDrawListener;
@@ -54,8 +50,6 @@ public class StepsViewIndicator extends View {
 
     private void init() {
         mLineHeight = mProgrssStrokeWidth;
-        mThumbRadius = 0.4f * 200;
-        mCircleRadius = 0.7f * mThumbRadius;
     }
 
     public void setStepSize(int size) {
@@ -76,10 +70,10 @@ public class StepsViewIndicator extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         mCenterY = 0.5f * getHeight();
-        mLeftX = mMargins;
+        float mLeftX = mMargins;
         mLineY = mCenterY - (mLineHeight / 2);
-        mRightX = getWidth() - mMargins;
-        mDelta = (mRightX - mLeftX) / (mNumOfStep - 1);
+        float mRightX = getWidth() - mMargins;
+        float mDelta = (mRightX - mLeftX) / (mNumOfStep - 1);
 
         mThumbContainerXPosition.add(mLeftX);
         for (int i = 1; i < mNumOfStep - 1; i++) {
@@ -148,6 +142,10 @@ public class StepsViewIndicator extends View {
         mMargins = margin;
     }
 
+    public void setCircleRadius(float radius) {
+        mCircleRadius = radius;
+    }
+
     @Override
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -184,7 +182,7 @@ public class StepsViewIndicator extends View {
             // in current completed position color with alpha
             if (i == mCompletedPosition) {
                 selectedPaint.setColor(getColorWithAlpha(mProgressColor, 0.2f));
-                canvas.drawCircle(pos, mCenterY, mCircleRadius * 1.8f, selectedPaint);
+                canvas.drawCircle(pos, mCenterY, mCircleRadius * 1.3f, selectedPaint);
             }
         }
     }

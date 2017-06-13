@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             getContext().getResources().getColor(R.color.material_blue_grey_800))
                     .setProgressColorIndicator(getContext().getResources().getColor(R.color.orange))
                     .setLabelColorIndicator(getContext().getResources().getColor(R.color.black))
+                    .setProgressMargins(130)
                     .drawView();
 
             return convertView;
