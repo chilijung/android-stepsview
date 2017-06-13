@@ -4,11 +4,11 @@ android stepsView library.
 
 ## Demo
 
-<img src="./demo.png" width="150"/>
+<img src="./demo.png" width="250"/>
 
 ## License
 
-License: Apache 2.0
+Apache 2.0
 
 modified from:
 https://github.com/anton46/Android-StepsView
