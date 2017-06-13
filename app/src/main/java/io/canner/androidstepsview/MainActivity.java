@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class MyAdapter extends ArrayAdapter<String> {
 
-        private final String[] labels = {"選擇車款\n及車種", "損害部位\n選擇", "確認明細\n事項"};
+        private final String[] labels = {"This is \n step 1", "I am step 2", "step 3"};
 
         public MyAdapter(Context context, int resource) {
             super(context, resource);

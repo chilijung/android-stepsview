@@ -3,7 +3,7 @@
 
 Yet another android stepsView library.
 
-a frok verson of https://github.com/anton46/Android-StepsView
+a fork verson of https://github.com/anton46/Android-StepsView
 
 ## Install
 
@@ -25,6 +25,15 @@ dependencies {
 
 <img src="./demo.png" width="250"/>
 
+
+## Improvements
+
+the original version is https://github.com/anton46/Android-StepsView with many improvements.
+
+- more concise text position and progress bar position
+- make labels align to center
+- add number in progress
+- add more customize options
 
 ## License
 
