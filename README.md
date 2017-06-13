@@ -1,14 +1,34 @@
 # Android-stepsView
+[![Release](https://jitpack.io/v/Canner/android-stepsview.svg)]
+(https://jitpack.io/#Canner/android-stepsview)
 
-android stepsView library.
+Yet another android stepsView library.
+
+modified from:
+https://github.com/anton46/Android-StepsView
+
+## Install
+
+add your `build.grade`:
+
+```groovy
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+dependencies {
+    compile 'com.github.Canner:android-stepsview:1.0.0'
+}
+```
 
 ## Demo
 
 <img src="./demo.png" width="250"/>
 
+
 ## License
 
 Apache 2.0
 
-modified from:
-https://github.com/anton46/Android-StepsView
