@@ -5,6 +5,7 @@ import io.canner.stepsview.StepsView;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String[] views = {"View 1", "View 2", "View 3", "View 4", "View 5", "View 6",
-            "View 7", "View 8", "View 9", "View 10", "View 11", "View 12"};
+    private final String[] views = {"View 1", "View 2", "View 3", "View 4"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class MyAdapter extends ArrayAdapter<String> {
 
-        private final String[] labels = {"Step 1", "Step 2", "Step 3", "Step 4", "Step 5"};
+        private final String[] labels = {"選擇車款\n及車種", "損害部位\n選擇", "確認明細\n事項"};
 
         public MyAdapter(Context context, int resource) {
             super(context, resource);
@@ -52,13 +52,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             holder.mLabel.setText(getItem(position));
+            Log.v("My Adapter", String.valueOf(position));
 
-            holder.mStepsView.setCompletedPosition(position % labels.length)
+            holder.mStepsView
+                    .setCompletedPosition(position % labels.length)
                     .setLabels(labels)
+                    .setProgressStrokeWidth(3)
                     .setBarColorIndicator(
                             getContext().getResources().getColor(R.color.material_blue_grey_800))
                     .setProgressColorIndicator(getContext().getResources().getColor(R.color.orange))
-                    .setLabelColorIndicator(getContext().getResources().getColor(R.color.orange))
+                    .setLabelColorIndicator(getContext().getResources().getColor(R.color.black))
                     .drawView();
 
             return convertView;

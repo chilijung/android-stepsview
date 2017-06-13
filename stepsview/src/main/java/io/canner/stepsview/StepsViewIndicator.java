@@ -14,23 +14,21 @@ import java.util.List;
 
 public class StepsViewIndicator extends View {
 
-    private static final int THUMB_SIZE = 100;
-
     private Paint paint = new Paint();
     private Paint selectedPaint = new Paint();
     private int mNumOfStep = 2;
+    private float mProgrssStrokeWidth = 5;
     private float mLineHeight;
     private float mThumbRadius;
     private float mCircleRadius;
-    private float mPadding;
+    private float mMargins = 100;
     private int mProgressColor = Color.YELLOW;
     private int mBarColor = Color.BLACK;
 
     private float mCenterY;
     private float mLeftX;
-    private float mLeftY;
+    private float mLineY;
     private float mRightX;
-    private float mRightY;
     private float mDelta;
     private List<Float> mThumbContainerXPosition = new ArrayList<>();
     private int mCompletedPosition;
@@ -55,10 +53,9 @@ public class StepsViewIndicator extends View {
     }
 
     private void init() {
-        mLineHeight = 0.2f * THUMB_SIZE;
-        mThumbRadius = 0.4f * THUMB_SIZE;
+        mLineHeight = mProgrssStrokeWidth;
+        mThumbRadius = 0.4f * 200;
         mCircleRadius = 0.7f * mThumbRadius;
-        mPadding = 0.5f * THUMB_SIZE;
     }
 
     public void setStepSize(int size) {
@@ -79,10 +76,9 @@ public class StepsViewIndicator extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         mCenterY = 0.5f * getHeight();
-        mLeftX = mPadding;
-        mLeftY = mCenterY - (mLineHeight / 2);
-        mRightX = getWidth() - mPadding;
-        mRightY = 0.5f * (getHeight() + mLineHeight);
+        mLeftX = mMargins;
+        mLineY = mCenterY - (mLineHeight / 2);
+        mRightX = getWidth() - mMargins;
         mDelta = (mRightX - mLeftX) / (mNumOfStep - 1);
 
         mThumbContainerXPosition.add(mLeftX);
@@ -94,16 +90,38 @@ public class StepsViewIndicator extends View {
     }
 
     @Override
-    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = 200;
-        if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec)) {
-            width = MeasureSpec.getSize(widthMeasureSpec);
-        }
-        int height = THUMB_SIZE + 20;
-        if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(heightMeasureSpec)) {
-            height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
-        }
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int width  = measureDimension(getWidth(), widthMeasureSpec);
+        int height = measureDimension(200, heightMeasureSpec);
+
         setMeasuredDimension(width, height);
+    }
+
+    protected int measureDimension( int defaultSize, int measureSpec ) {
+
+        int result = defaultSize;
+
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        //1. layout给出了确定的值，比如：100dp
+        //2. layout使用的是match_parent，但父控件的size已经可以确定了，比如设置的是具体的值或者match_parent
+        if (specMode == MeasureSpec.EXACTLY) {
+            result = specSize; //建议：result直接使用确定值
+        }
+        //1. layout使用的是wrap_content
+        //2. layout使用的是match_parent,但父控件使用的是确定的值或者wrap_content
+        else if (specMode == MeasureSpec.AT_MOST) {
+            result = Math.min(defaultSize, specSize); //建议：result不能大于specSize
+        }
+        //UNSPECIFIED,没有任何限制，所以可以设置任何大小
+        //多半出现在自定义的父控件的情况下，期望由自控件自行决定大小
+        else {
+            result = defaultSize;
+        }
+
+        return result;
     }
 
     public void setCompletedPosition(int position) {
@@ -122,42 +140,48 @@ public class StepsViewIndicator extends View {
         mBarColor = barColor;
     }
 
+    public void setProgressStrokeWidth(float width) {
+        mProgrssStrokeWidth = width;
+    }
+
+    public void setMargins(float margin) {
+        mMargins = margin;
+    }
+
     @Override
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mDrawListener.onReady();
-        // Draw rect bounds
+        // bar progress paint
         paint.setAntiAlias(true);
         paint.setColor(mBarColor);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(2);
+        paint.setStrokeWidth(1);
 
+        // progress paint
         selectedPaint.setAntiAlias(true);
         selectedPaint.setColor(mProgressColor);
         selectedPaint.setStyle(Paint.Style.STROKE);
-        selectedPaint.setStrokeWidth(2);
-
-        // Draw rest of the circle'Bounds
-        for (int i = 0; i < mThumbContainerXPosition.size(); i++) {
-            canvas.drawCircle(mThumbContainerXPosition.get(i), mCenterY, mCircleRadius,
-                    (i <= mCompletedPosition) ? selectedPaint : paint);
-        }
+        selectedPaint.setStrokeWidth(1);
 
         paint.setStyle(Paint.Style.FILL);
         selectedPaint.setStyle(Paint.Style.FILL);
+
+        // draw lines
         for (int i = 0; i < mThumbContainerXPosition.size() - 1; i++) {
             final float pos = mThumbContainerXPosition.get(i);
             final float pos2 = mThumbContainerXPosition.get(i + 1);
-            canvas.drawRect(pos, mLeftY, pos2, mRightY,
+            canvas.drawRect(pos, mLineY, pos2, mLineY + mProgrssStrokeWidth,
                     (i < mCompletedPosition) ? selectedPaint : paint);
         }
 
-        // Draw rest of circle
+        // Draw circles
         for (int i = 0; i < mThumbContainerXPosition.size(); i++) {
             final float pos = mThumbContainerXPosition.get(i);
             canvas.drawCircle(pos, mCenterY, mCircleRadius,
                     (i <= mCompletedPosition) ? selectedPaint : paint);
 
+            // in current completed position color with alpha
             if (i == mCompletedPosition) {
                 selectedPaint.setColor(getColorWithAlpha(mProgressColor, 0.2f));
                 canvas.drawCircle(pos, mCenterY, mCircleRadius * 1.8f, selectedPaint);
@@ -176,7 +200,6 @@ public class StepsViewIndicator extends View {
     }
 
     public interface OnDrawListener {
-
-        public void onReady();
+        void onReady();
     }
 }

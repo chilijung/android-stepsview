@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
     private int mProgressColorIndicator = Color.YELLOW;
     private int mLabelColorIndicator = Color.BLACK;
     private int mBarColorIndicator = Color.BLACK;
+    private float mLabelTextSize = 20;
     private int mCompletedPosition = 0;
 
     public StepsView(Context context) {
@@ -94,6 +96,21 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
         return this;
     }
 
+    public StepsView setLabelTextSize(float size) {
+        mLabelTextSize = size;
+        return this;
+    }
+
+    public StepsView setProgressStrokeWidth(float width) {
+        mStepsViewIndicator.setProgressStrokeWidth(width);
+        return this;
+    }
+
+    public StepsView setProgressMargins(float margin) {
+        mStepsViewIndicator.setMargins(margin);
+        return this;
+    }
+
     public void drawView() {
         if (mLabels == null) {
             throw new IllegalArgumentException("labels must not be null.");
@@ -120,13 +137,11 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
                 textView.setText(mLabels[i]);
                 textView.setTextColor(mLabelColorIndicator);
                 textView.setX(indicatorPosition.get(i));
+                textView.setTextSize(mLabelTextSize);
+                textView.setGravity(Gravity.CENTER);
                 textView.setLayoutParams(
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT));
-
-                if (i <= mCompletedPosition) {
-                    textView.setTypeface(null, Typeface.BOLD);
-                }
 
                 mLabelsLayout.addView(textView);
             }
