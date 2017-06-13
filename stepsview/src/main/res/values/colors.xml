@@ -3,4 +3,5 @@
     <color name="yellow">#ffff981e</color>
     <color name="primary">#03A9F4</color>
     <color name="orange">#fffaaa00</color>
+    <color name="white">#fff</color>
 </resources>

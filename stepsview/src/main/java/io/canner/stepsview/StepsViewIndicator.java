@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -16,6 +17,7 @@ public class StepsViewIndicator extends View {
 
     private Paint paint = new Paint();
     private Paint selectedPaint = new Paint();
+    private Paint progressTextPaint = new Paint();
     private int mNumOfStep = 2;
     private float mProgrssStrokeWidth = 5;
     private float mLineHeight;
@@ -23,6 +25,7 @@ public class StepsViewIndicator extends View {
     private float mMargins = 100;
     private int mProgressColor = Color.YELLOW;
     private int mBarColor = Color.BLACK;
+    private int mProgressTextColor = Color.WHITE;
 
     private float mCenterY;
     private float mLineY;
@@ -134,6 +137,10 @@ public class StepsViewIndicator extends View {
         mBarColor = barColor;
     }
 
+    public void setProgressTextColor(int textColor) {
+        mProgressTextColor = textColor;
+    }
+
     public void setProgressStrokeWidth(float width) {
         mProgrssStrokeWidth = width;
     }
@@ -162,6 +169,11 @@ public class StepsViewIndicator extends View {
         selectedPaint.setStyle(Paint.Style.STROKE);
         selectedPaint.setStrokeWidth(1);
 
+        // progress text
+        progressTextPaint.setAntiAlias(true);
+        progressTextPaint.setTextSize(mCircleRadius);
+        progressTextPaint.setColor(mProgressTextColor);
+
         paint.setStyle(Paint.Style.FILL);
         selectedPaint.setStyle(Paint.Style.FILL);
 
@@ -173,12 +185,13 @@ public class StepsViewIndicator extends View {
                     (i < mCompletedPosition) ? selectedPaint : paint);
         }
 
+        float quarterRadius = mCircleRadius / 4;
         // Draw circles
         for (int i = 0; i < mThumbContainerXPosition.size(); i++) {
             final float pos = mThumbContainerXPosition.get(i);
             canvas.drawCircle(pos, mCenterY, mCircleRadius,
                     (i <= mCompletedPosition) ? selectedPaint : paint);
-
+            canvas.drawText(String.valueOf(i + 1), pos - quarterRadius, mCenterY + quarterRadius, progressTextPaint);
             // in current completed position color with alpha
             if (i == mCompletedPosition) {
                 selectedPaint.setColor(getColorWithAlpha(mProgressColor, 0.2f));

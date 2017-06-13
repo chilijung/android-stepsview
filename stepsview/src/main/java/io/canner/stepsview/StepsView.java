@@ -116,6 +116,11 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
         return this;
     }
 
+    public StepsView setProgressTextColor(int textColor) {
+        mStepsViewIndicator.setProgressTextColor(textColor);
+        return this;
+    }
+
     public void drawView() {
         if (mLabels == null) {
             throw new IllegalArgumentException("labels must not be null.");

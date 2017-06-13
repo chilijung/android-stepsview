@@ -2,6 +2,10 @@
 
 android stepsView library.
 
+## Demo
+
+[!demo](./demo.png)
+
 ## License
 
 License: Apache 2.0

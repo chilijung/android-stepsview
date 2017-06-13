@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     .setProgressColorIndicator(getContext().getResources().getColor(R.color.orange))
                     .setLabelColorIndicator(getContext().getResources().getColor(R.color.black))
                     .setProgressMargins(130)
+                    .setCircleRadius(60)
                     .drawView();
 
             return convertView;
