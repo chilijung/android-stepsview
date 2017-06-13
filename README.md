@@ -4,7 +4,7 @@ android stepsView library.
 
 ## Demo
 
-![demo](./demo.png)
+<img src="./demo.png" width="150"/>
 
 ## License
 
