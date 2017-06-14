@@ -17,9 +17,57 @@ allprojects {
     }
 }
 dependencies {
-    compile 'com.github.Canner:android-stepsview:1.0.0'
+    compile 'com.github.canner:android-stepsview:1.0.0'
 }
 ```
+
+## Usage
+
+
+```xml
+ <io.canner.stepsview.StepsView
+        android:id="@+id/stepsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+```
+
+```java
+mStepsView.setLabels(steps)
+        .setBarColorIndicator(getContext().getResources().getColor(R.color.material_blue_grey_800))
+        .setProgressColorIndicator(getContext().getResources().getColor(R.color.orange))
+        .setLabelColorIndicator(getContext().getResources().getColor(R.color.orange))
+        .setCompletedPosition(0)
+        .drawView();
+```
+
+## More options
+
+setting up `stepviews` we use chain methods such as example above. And here is more.
+
+### setLabelTextSize(float size)
+
+set label size
+
+### setProgressStrokeWidth(float width)
+
+set the stroke width in between step progress.
+
+### setProgressMargins(float margin)
+
+set margins of the view
+
+### setCircleRadius(float radius)
+
+set the steps' radius.
+
+### setProgressTextColor(int textColor)
+
+set text color in the step.
+
+### hideProgressText(boolean hide)
+
+hide the text in the progress.
 
 ## Demo
 

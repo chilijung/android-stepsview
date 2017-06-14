@@ -26,6 +26,7 @@ public class StepsViewIndicator extends View {
     private int mProgressColor = Color.YELLOW;
     private int mBarColor = Color.BLACK;
     private int mProgressTextColor = Color.WHITE;
+    private boolean hideProgressText = false;
 
     private float mCenterY;
     private float mLineY;
@@ -153,6 +154,10 @@ public class StepsViewIndicator extends View {
         mCircleRadius = radius;
     }
 
+    public void setHideProgressText(boolean hide) {
+        hideProgressText = hide;
+    }
+
     @Override
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -191,7 +196,10 @@ public class StepsViewIndicator extends View {
             final float pos = mThumbContainerXPosition.get(i);
             canvas.drawCircle(pos, mCenterY, mCircleRadius,
                     (i <= mCompletedPosition) ? selectedPaint : paint);
-            canvas.drawText(String.valueOf(i + 1), pos - quarterRadius, mCenterY + quarterRadius, progressTextPaint);
+
+            if (!hideProgressText) {
+                canvas.drawText(String.valueOf(i + 1), pos - quarterRadius, mCenterY + quarterRadius, progressTextPaint);
+            }
             // in current completed position color with alpha
             if (i == mCompletedPosition) {
                 selectedPaint.setColor(getColorWithAlpha(mProgressColor, 0.2f));

@@ -121,6 +121,11 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
         return this;
     }
 
+    public StepsView hideProgressText(boolean hide) {
+        mStepsViewIndicator.setHideProgressText(hide);
+        return this;
+    }
+
     public void drawView() {
         if (mLabels == null) {
             throw new IllegalArgumentException("labels must not be null.");
