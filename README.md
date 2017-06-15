@@ -5,6 +5,11 @@ A more complete version of android stepsView library.
 
 original version from https://github.com/anton46/Android-StepsView
 
+## Demo
+
+<img src="./demo.png" width="250"/>
+
+
 ## Install
 
 add your `build.grade`:
@@ -53,16 +58,16 @@ mStepsView.setLabels(steps)
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    custom:labels="@array/labels2"  <====== set labels
-    custom:labelSize="20" <================ set label size
-    custom:numOfSteps="5" <================ set steps
-    custom:circleRadius="40" <============= set radius
-    custom:progressMargin="150" <========== set margin
-    custom:completePosition="2" <========== set complete position
-    custom:barColor="@color/orange" <====== set bar color
-    custom:labelColor="@color/red" <======= set label color
-    custom:progressColor="@color/blue" <=== set progress color
-    custom:progressTextColor="@color/black" <= set progress text color
+    custom:labels="@array/labels2"      <====== set labels
+    custom:labelSize="20"     <================ set label size
+    custom:numOfSteps="5"     <================ set steps
+    custom:circleRadius="40"     <============= set radius
+    custom:progressMargin="150"     <========== set margin
+    custom:completePosition="2"     <========== set complete position
+    custom:barColor="@color/orange"     <====== set bar color
+    custom:labelColor="@color/red"     <======= set label color
+    custom:progressColor="@color/blue"     <=== set progress color
+    custom:progressTextColor="@color/black"  <= set progress text color
     style="@style/stepsView"
     />
 ```
@@ -114,11 +119,6 @@ set text color in the step.
 ### hideProgressText(boolean hide)
 
 hide the text in the progress.
-
-## Demo
-
-<img src="./demo.png" width="250"/>
-
 
 ## Improvements
 
