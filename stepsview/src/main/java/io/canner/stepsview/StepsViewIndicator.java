@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -18,15 +19,15 @@ public class StepsViewIndicator extends View {
     private Paint paint = new Paint();
     private Paint selectedPaint = new Paint();
     private Paint progressTextPaint = new Paint();
-    private int mNumOfStep = 2;
-    private float mProgrssStrokeWidth = 5;
+    private int mNumOfStep;
+    private float mProgrssStrokeWidth;
     private float mLineHeight;
-    private float mCircleRadius = 50;
-    private float mMargins = 100;
-    private int mProgressColor = Color.YELLOW;
-    private int mBarColor = Color.BLACK;
-    private int mProgressTextColor = Color.WHITE;
-    private boolean hideProgressText = false;
+    private float mCircleRadius;
+    private float mMargins;
+    private int mProgressColor;
+    private int mBarColor;
+    private int mProgressTextColor;
+    private boolean hideProgressText;
 
     private float mCenterY;
     private float mLineY;
@@ -44,11 +45,6 @@ public class StepsViewIndicator extends View {
 
     public StepsViewIndicator(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.StepsViewIndicator);
-        mNumOfStep = a.getInt(R.styleable.StepsViewIndicator_numOfSteps, 0);
-        a.recycle();
-
         init();
     }
 
@@ -56,7 +52,7 @@ public class StepsViewIndicator extends View {
         mLineHeight = mProgrssStrokeWidth;
     }
 
-    public void setStepSize(int size) {
+    public void setStepTotal(int size) {
         mNumOfStep = size;
         invalidate();
     }
@@ -161,6 +157,7 @@ public class StepsViewIndicator extends View {
     @Override
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         mDrawListener.onReady();
         // bar progress paint
         paint.setAntiAlias(true);

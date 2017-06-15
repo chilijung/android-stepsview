@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="StepsViewIndicator">
+    <declare-styleable name="StepsView">
         <attr name="numOfSteps" format="integer" />
+        <attr name="completePosition" format="integer"/>
+        <attr name="labels" format="reference"/>
+        <attr name="barColor" format="reference"/>
+        <attr name="progressColor" format="reference"/>
+        <attr name="labelColor" format="reference"/>
+        <attr name="progressTextColor" format="reference"/>
+        <attr name="hideProgressText" format="boolean"/>
+        <attr name="labelSize" format="float"/>
+        <attr name="progressMargin" format="float"/>
+        <attr name="circleRadius" format="float"/>
+        <attr name="progressStrokeWidth" format="float"/>
     </declare-styleable>
 </resources>

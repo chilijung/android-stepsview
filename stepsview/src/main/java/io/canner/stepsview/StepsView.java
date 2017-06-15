@@ -1,9 +1,10 @@
 package io.canner.stepsview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
     private int mBarColorIndicator = Color.BLACK;
     private float mLabelTextSize = 20;
     private int mCompletedPosition = 0;
+    private int mTotalSteps;
 
     public StepsView(Context context) {
         this(context, null);
@@ -38,6 +40,37 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
                      int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
+
+        TypedArray arr = context.obtainStyledAttributes(attrs,
+                R.styleable.StepsView);
+        int numSteps = arr.getInt(R.styleable.StepsView_numOfSteps, 2);
+        int completePos = arr.getInt(R.styleable.StepsView_completePosition, 0);
+//        int labelsResId = arr.getResourceId(R.styleable.StepsView_labels, 0);
+        int barColorResId = arr.getResourceId(R.styleable.StepsView_barColor, Color.GRAY);
+        int progressColorResId = arr.getResourceId(R.styleable.StepsView_progressColor, Color.YELLOW);
+        int labelColorResId = arr.getResourceId(R.styleable.StepsView_labelColor, Color.BLACK);
+        int progressTextColorResId = arr.getResourceId(R.styleable.StepsView_progressTextColor, Color.WHITE);
+        boolean hideProgressText = arr.getBoolean(R.styleable.StepsView_hideProgressText, false);
+        float labelSize =arr.getFloat(R.styleable.StepsView_labelSize, 20);
+        float progressMargin = arr.getFloat(R.styleable.StepsView_progressMargin, 100);
+        float circleRadius = arr.getFloat(R.styleable.StepsView_circleRadius, 50);
+        float progressStrokeWidth = arr.getFloat(R.styleable.StepsView_progressStrokeWidth, 5);
+
+        mStepsViewIndicator.setStepTotal(numSteps);
+        mTotalSteps = numSteps;
+        this.setCompletedPosition(completePos);
+        this.setBarColorIndicator(barColorResId);
+        this.setProgressColorIndicator(progressColorResId);
+        this.setLabelColorIndicator(labelColorResId);
+        this.setProgressTextColor(progressTextColorResId);
+        this.setHideProgressText(hideProgressText);
+        this.setLabelTextSize(labelSize);
+        this.setProgressMargins(progressMargin);
+        this.setCircleRadius(circleRadius);
+        this.setProgressStrokeWidth(progressStrokeWidth);
+        arr.recycle();
+        // initial draw view
+        drawView();
     }
 
     private void init() {
@@ -53,7 +86,8 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
 
     public StepsView setLabels(String[] labels) {
         mLabels = labels;
-        mStepsViewIndicator.setStepSize(labels.length);
+        mStepsViewIndicator.setStepTotal(labels.length);
+        mTotalSteps = labels.length;
         return this;
     }
 
@@ -121,17 +155,18 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
         return this;
     }
 
-    public StepsView hideProgressText(boolean hide) {
+    public StepsView setHideProgressText(boolean hide) {
         mStepsViewIndicator.setHideProgressText(hide);
         return this;
     }
 
     public void drawView() {
-        if (mLabels == null) {
-            throw new IllegalArgumentException("labels must not be null.");
+        Log.v("stepsView", "draw view");
+        if (mTotalSteps == 0) {
+            throw new IllegalArgumentException("Total steps cannot be zero.");
         }
 
-        if (mCompletedPosition < 0 || mCompletedPosition > mLabels.length - 1) {
+        if (mCompletedPosition < 0 || mCompletedPosition > mTotalSteps - 1) {
             throw new IndexOutOfBoundsException(String.format("Index : %s, Size : %s", mCompletedPosition, mLabels.length));
         }
 
