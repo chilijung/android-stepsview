@@ -6,20 +6,67 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
     <TextView
-        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/title"
         android:text="Inital a stepView"/>
 
     <io.canner.stepsview.StepsView
         xmlns:custom="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/stepsView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        custom:numOfSteps="5"
+        style="@style/stepsView"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/title"
+        android:text="Set labels"/>
+
+    <io.canner.stepsview.StepsView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:labels="@array/labels"
+        style="@style/stepsView"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/title"
+        android:text="customized colors"/>
+
+    <io.canner.stepsview.StepsView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:barColor="@color/orange"
+        custom:labelColor="@color/red"
+        custom:progressColor="@color/blue"
+        custom:progressTextColor="@color/black"
+        custom:labels="@array/labels"
+        custom:completePosition="1"
+        style="@style/stepsView"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/title"
+        android:text="customized size and others"/>
+
+    <io.canner.stepsview.StepsView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        custom:labels="@array/labels2"
+        custom:labelSize="20"
+        custom:numOfSteps="5"
+        custom:circleRadius="40"
+        custom:progressMargin="150"
+        custom:completePosition="2"
+        style="@style/stepsView"
+        />
 </LinearLayout>
 

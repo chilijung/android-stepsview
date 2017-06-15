@@ -5,4 +5,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="title">
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="stepsView">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
 </resources>

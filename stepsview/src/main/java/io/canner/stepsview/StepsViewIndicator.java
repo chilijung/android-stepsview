@@ -68,6 +68,7 @@ public class StepsViewIndicator extends View {
     @Override
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        mThumbContainerXPosition = new ArrayList<>();
 
         mCenterY = 0.5f * getHeight();
         float mLeftX = mMargins;
@@ -80,6 +81,7 @@ public class StepsViewIndicator extends View {
             mThumbContainerXPosition.add(mLeftX + (i * mDelta));
         }
         mThumbContainerXPosition.add(mRightX);
+        Log.v("steps view indicator", mThumbContainerXPosition.toString());
         mDrawListener.onReady();
     }
 

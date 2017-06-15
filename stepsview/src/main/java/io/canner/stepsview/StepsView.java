@@ -3,6 +3,7 @@ package io.canner.stepsview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -43,13 +44,13 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
 
         TypedArray arr = context.obtainStyledAttributes(attrs,
                 R.styleable.StepsView);
-        int numSteps = arr.getInt(R.styleable.StepsView_numOfSteps, 2);
+        int numSteps = arr.getInt(R.styleable.StepsView_numOfSteps, 3);
         int completePos = arr.getInt(R.styleable.StepsView_completePosition, 0);
-//        int labelsResId = arr.getResourceId(R.styleable.StepsView_labels, 0);
-        int barColorResId = arr.getResourceId(R.styleable.StepsView_barColor, Color.GRAY);
-        int progressColorResId = arr.getResourceId(R.styleable.StepsView_progressColor, Color.YELLOW);
-        int labelColorResId = arr.getResourceId(R.styleable.StepsView_labelColor, Color.BLACK);
-        int progressTextColorResId = arr.getResourceId(R.styleable.StepsView_progressTextColor, Color.WHITE);
+        int labelsResId = arr.getResourceId(R.styleable.StepsView_labels, 0);
+        int barColor = arr.getColor(R.styleable.StepsView_barColor, Color.GRAY);
+        int progressColor = arr.getColor(R.styleable.StepsView_progressColor, ContextCompat.getColor(context, R.color.orange));
+        int labelColor = arr.getColor(R.styleable.StepsView_labelColor, Color.BLACK);
+        int progressTextColor = arr.getColor(R.styleable.StepsView_progressTextColor, Color.WHITE);
         boolean hideProgressText = arr.getBoolean(R.styleable.StepsView_hideProgressText, false);
         float labelSize =arr.getFloat(R.styleable.StepsView_labelSize, 20);
         float progressMargin = arr.getFloat(R.styleable.StepsView_progressMargin, 100);
@@ -58,11 +59,14 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
 
         mStepsViewIndicator.setStepTotal(numSteps);
         mTotalSteps = numSteps;
+        if (labelsResId > 0) {
+            this.setLabels(getResources().getStringArray(labelsResId));
+        }
         this.setCompletedPosition(completePos);
-        this.setBarColorIndicator(barColorResId);
-        this.setProgressColorIndicator(progressColorResId);
-        this.setLabelColorIndicator(labelColorResId);
-        this.setProgressTextColor(progressTextColorResId);
+        this.setBarColorIndicator(barColor);
+        this.setProgressColorIndicator(progressColor);
+        this.setLabelColorIndicator(labelColor);
+        this.setProgressTextColor(progressTextColor);
         this.setHideProgressText(hideProgressText);
         this.setLabelTextSize(labelSize);
         this.setProgressMargins(progressMargin);
@@ -86,8 +90,10 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
 
     public StepsView setLabels(String[] labels) {
         mLabels = labels;
-        mStepsViewIndicator.setStepTotal(labels.length);
-        mTotalSteps = labels.length;
+        if (labels.length > mTotalSteps) {
+            mStepsViewIndicator.setStepTotal(labels.length);
+            mTotalSteps = labels.length;
+        }
         return this;
     }
 
@@ -161,7 +167,6 @@ public class StepsView extends LinearLayout implements StepsViewIndicator.OnDraw
     }
 
     public void drawView() {
-        Log.v("stepsView", "draw view");
         if (mTotalSteps == 0) {
             throw new IllegalArgumentException("Total steps cannot be zero.");
         }

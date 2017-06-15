@@ -3,4 +3,18 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="labels">
+        <item>step 1</item>
+        <item>step 2</item>
+        <item>step 3</item>
+    </string-array>
+
+    <string-array name="labels2">
+        <item>step 1</item>
+        <item>step 2</item>
+        <item>step 3</item>
+        <item>step 4</item>
+        <item>step 5</item>
+    </string-array>
 </resources>

@@ -19,15 +19,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StepsView mStepsView = (StepsView) findViewById(R.id.stepsView);
-
-        mStepsView
-            .setBarColorIndicator(
-                    getApplicationContext().getResources().getColor(R.color.material_blue_grey_800))
-            .setProgressColorIndicator(getApplicationContext().getResources().getColor(R.color.orange))
-            .setLabelColorIndicator(getApplicationContext().getResources().getColor(R.color.black))
-            .setCircleRadius(60)
-            .drawView();
     }
 
 }
