@@ -3,8 +3,6 @@
 
 A more complete version of android stepsView library.
 
-original version from https://github.com/anton46/Android-StepsView
-
 ## Demo
 
 <img src="./demo.png" width="250"/>
