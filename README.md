@@ -128,6 +128,7 @@ the original version is https://github.com/anton46/Android-StepsView with many i
 - make labels align to center
 - add number in progress
 - add more customize options
+- support syntax in xml layout
 
 ## License
 
