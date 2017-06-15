@@ -22,7 +22,7 @@ allprojects {
     }
 }
 dependencies {
-    compile 'com.github.canner:android-stepsview:1.1.0'
+    compile 'com.github.canner:android-stepsview:<VERSION>'
 }
 ```
 
