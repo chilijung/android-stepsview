@@ -1,9 +1,9 @@
 # Android-stepsView
 [![Release](https://jitpack.io/v/Canner/android-stepsview.svg)](https://jitpack.io/#Canner/android-stepsview)
 
-Yet another android stepsView library.
+A more complete version of android stepsView library.
 
-a fork verson of https://github.com/anton46/Android-StepsView
+original version from https://github.com/anton46/Android-StepsView
 
 ## Install
 
@@ -23,6 +23,7 @@ dependencies {
 
 ## Usage
 
+layout.xml
 
 ```xml
  <io.canner.stepsview.StepsView
@@ -32,7 +33,11 @@ dependencies {
         />
 ```
 
+you could also set options using chain methods
+
 ```java
+StepsView mStepsView = (StepsView) findViewById(R.id.stepview);
+
 mStepsView.setLabels(steps)
         .setBarColorIndicator(getContext().getResources().getColor(R.color.material_blue_grey_800))
         .setProgressColorIndicator(getContext().getResources().getColor(R.color.orange))
@@ -41,9 +46,50 @@ mStepsView.setLabels(steps)
         .drawView();
 ```
 
-## More options
+## Setup options in layout
+
+```xml
+<io.canner.stepsview.StepsView
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    custom:labels="@array/labels2"  <====== set labels
+    custom:labelSize="20" <================ set label size
+    custom:numOfSteps="5" <================ set steps
+    custom:circleRadius="40" <============= set radius
+    custom:progressMargin="150" <========== set margin
+    custom:completePosition="2" <========== set complete position
+    custom:barColor="@color/orange" <====== set bar color
+    custom:labelColor="@color/red" <======= set label color
+    custom:progressColor="@color/blue" <=== set progress color
+    custom:progressTextColor="@color/black" <= set progress text color
+    style="@style/stepsView"
+    />
+```
+
+## Options
 
 setting up `stepviews` we use chain methods such as example above. And here is more.
+
+### setLabels(String[] labels)
+
+set labels
+
+### setBarColorIndicator(int ResId)
+
+set bar color
+
+### setProgressColorIndicator(int ResId)
+
+set progress color
+
+### setLabelColorIndicator(int ResId)
+
+set label color
+
+### setCompletePosition(int pos)
+
+set complete step position
 
 ### setLabelTextSize(float size)
 
